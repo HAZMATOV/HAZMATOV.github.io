@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Контакты — СК Голдстрой" description="Контакты компании СК Голдстрой. Строительство домов в Москве и Московской области.">
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="container page-hero-inner">
+    <div class="eyebrow eyebrow-gold" data-aos="fade-up">Свяжитесь с нами</div>
+    <h1 class="h1-page" data-aos="fade-up" data-aos-delay="100">Контакты</h1>
+    <p data-aos="fade-up" data-aos-delay="200">Ответим на все вопросы и поможем с выбором проекта</p>
+  </div>
+</section>
+
+<section class="section-light">
+<div class="container">
+  <div class="split-layout">
+    <div class="split-left" data-aos="fade-right">
+      <div class="eyebrow">Как с нами связаться</div>
+      <h2 class="h2">Наши контакты</h2>
+      
+      <div style="margin-bottom:35px">
+        <h3 style="font-size:18px;color:#c9a063;margin-bottom:12px;font-weight:600">Telegram</h3>
+        <a href="https://t.me/username" style="font-size:28px;color:#ffffff;text-decoration:none;font-weight:700;display:inline-block;transition:color 0.3s">@username</a>
+        <p style="color:rgba(255,255,255,0.7);margin-top:8px;font-size:15px">Быстрая связь в любое время</p>
+      </div>
+      
+      <div style="margin-bottom:35px">
+        <h3 style="font-size:18px;color:#c9a063;margin-bottom:12px;font-weight:600">Email</h3>
+        <a href="mailto:sk-goldstroj@yandex.ru" style="font-size:20px;color:#ffffff;text-decoration:none;transition:color 0.3s">sk-goldstroj@yandex.ru</a>
+        <p style="color:rgba(255,255,255,0.7);margin-top:8px;font-size:15px">Для официальных запросов</p>
+      </div>
+      
+      <div style="margin-bottom:35px">
+        <h3 style="font-size:18px;color:#c9a063;margin-bottom:12px;font-weight:600">Адрес</h3>
+        <p style="font-size:17px;color:rgba(255,255,255,0.7);line-height:1.7">Москва и Московская область<br>Работаем по всему региону</p>
+      </div>
+      
+      <div>
+        <h3 style="font-size:18px;color:#c9a063;margin-bottom:12px;font-weight:600">График работы</h3>
+        <p style="font-size:17px;color:rgba(255,255,255,0.7);line-height:1.7">Ежедневно с 9:00 до 22:00<br>Без выходных</p>
+      </div>
+    </div>
+    
+    <div class="split-right" data-aos="fade-left" data-aos-delay="100">
+      <div class="contact-form">
+        <h2 style="font-size:32px;font-weight:900;margin-bottom:30px;color:#ffffff">Напишите нам</h2>
+        <form onsubmit="sendForm(event)" style="margin:0" novalidate>
+          <div class="form-group">
+            <label>Ваше имя *</label>
+            <input type="text" name="name" placeholder="Иван Иванов" required>
+          </div>
+          <div class="form-group">
+            <label>Telegram username *</label>
+            <input type="text" name="telegram" placeholder="@username" required>
+          </div>
+          <div class="form-group">
+            <label>Сообщение</label>
+            <textarea name="message" placeholder="Расскажите о вашем проекте..." rows="4"></textarea>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="agree" required>
+            <label for="agree">
+              Я даю согласие на обработку персональных данных в соответствии с <a href="/privacy" style="color:#c9a063;text-decoration:underline;">Политикой конфиденциальности</a>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-gold" style="width:100%;font-size:16px;padding:16px;transition:all 0.3s">Отправить заявку</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+</Layout>

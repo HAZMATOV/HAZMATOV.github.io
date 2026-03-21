@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+interface Props {
+    error: unknown;
+}
+const { error } = Astro.props;
+---
+
+<Layout title="500: Внутренняя ошибка сервера — СК Голдстрой" description="Произошла внутренняя ошибка сервера.">
+<section class="section-cta-full" style="min-height: 80vh;">
+  <div class="cta-bg" style="background-image:url('https://images.unsplash.com/photo-1541888081622-1f48ed24dc1c?w=1920&q=80')"></div>
+  <div class="cta-overlay" style="background: linear-gradient(135deg, rgba(20,0,0,0.85), rgba(10,10,10,0.95));"></div>
+  <div class="container cta-inner" style="max-width: 800px;">
+    <div class="eyebrow" style="color: #ff4c4c;" data-aos="fade-up">Критическая ошибка</div>
+    <h1 class="h1-page" style="font-size: clamp(80px, 15vw, 150px); color: #ff4c4c; margin-bottom: 0; line-height: 1;" data-aos="fade-up" data-aos-delay="100">500</h1>
+    <h2 class="h2 h2-white" style="margin-top: 20px; margin-bottom: 20px;" data-aos="fade-up" data-aos-delay="200">Внутренняя ошибка системы</h2>
+    <p class="body-text" style="margin: 0 auto 40px; color: rgba(255,255,255,0.7); max-width: 500px;" data-aos="fade-up" data-aos-delay="300">
+      Что-то пошло не так на нашей стороне. Мы уже работаем над устранением проблемы. Пожалуйста, попробуйте позже.
+    </p>
+    <div class="cta-btns" data-aos="fade-up" data-aos-delay="400">
+      <a href="/" class="btn btn-gold">Вернуться на главную</a>
+    </div>
+  </div>
+</section>
+</Layout>

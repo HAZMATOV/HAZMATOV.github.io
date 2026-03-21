@@ -1,0 +1,134 @@
+---
+// src/layouts/Layout.astro
+import { ViewTransitions } from 'astro:transitions';
+
+export interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonical?: string;
+}
+
+const { 
+  title, 
+  description, 
+  image = '/images/services/kirpich.jpg', 
+  canonical = 'https://goldstroy.ru' + Astro.url.pathname 
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ru" style="background-color: #0a0a0a; color-scheme: dark;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<ViewTransitions />
+<meta name="description" content={description}>
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href={canonical} />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content={canonical}>
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:image" content={new URL(image, Astro.url)}>
+<meta property="og:locale" content="ru_RU">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={title}>
+<meta name="twitter:description" content={description}>
+<meta name="twitter:image" content={new URL(image, Astro.url)}>
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ConstructionBusiness",
+  "name": "СК Голдстрой",
+  "image": "https://goldstroy.ru/images/services/kirpich.jpg",
+  "telephone": "+79932489008",
+  "email": "sk-goldstroj@yandex.ru",
+  "url": "https://goldstroy.ru",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Москва",
+    "addressRegion": "Московская область",
+    "addressCountry": "RU"
+  },
+  "priceRange": "₽₽₽"
+})}></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<!-- Убрали блокирующий скрипт очистки темы -->
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="dark-page" style="background-color: #0a0a0a; color: #ffffff; min-height: 100vh;">
+
+<!-- Cursor glow -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- HEADER -->
+<header id="header" class="header-transparent">
+<div class="container">
+<div class="header-content">
+  <a href="/" class="logo">СК ГОЛД<span>СТРОЙ</span></a>
+  <nav id="nav">
+    <a href="/">Главная</a>
+    <a href="/about">О компании</a>
+    <a href="/projects">Проекты</a>
+    <a href="/blog">Блог</a>
+    <a href="/#calculator">Калькулятор</a>
+    <a href="/contacts">Контакты</a>
+  </nav>
+  <a href="tel:+79932489008" class="header-phone">+7 993 248 90 08</a>
+  <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+</div>
+</div>
+</header>
+
+<main>
+  <slot />
+</main>
+
+<!-- FOOTER -->
+<footer>
+<div class="container">
+  <div class="footer-content">
+    <div class="footer-section">
+      <a href="/" class="logo" style="display:inline-block;margin-bottom:16px">СК ГОЛД<span>СТРОЙ</span></a>
+      <p>Строительство премиальных домов под ключ в Москве и Московской области</p>
+    </div>
+    <div class="footer-section">
+      <h3>Навигация</h3>
+      <a href="/about">О компании</a>
+      <a href="/projects">Проекты</a>
+      <a href="/blog">Блог</a>
+      <a href="/#calculator">Калькулятор</a>
+      <a href="/contacts">Контакты</a>
+    </div>
+    <div class="footer-section">
+      <h3>Контакты</h3>
+      <a href="tel:+79932489008">+7 993 248 90 08</a>
+      <a href="mailto:sk-goldstroj@yandex.ru">sk-goldstroj@yandex.ru</a>
+      <p>Москва и Московская область</p>
+      <p>На связи с 9:00 до 22:00</p>
+    </div>
+    <div class="footer-section">
+      <h3>Услуги</h3>
+      <a href="/services/kirpich">Дома из кирпича</a>
+      <a href="/services/gazobeton">Дома из газобетона</a>
+      <a href="/services/bani">Строительство бань</a>
+      <a href="/services/montazh">Монтажные работы</a>
+      <a href="/services/otdelka">Отделка интерьеров</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 СК Голдстрой. Все права защищены.</div>
+</div>
+</footer>
+
+<script is:inline src="/js/script.js"></script>
+</body>
+</html>
