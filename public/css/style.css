@@ -79,11 +79,11 @@ header.scrolled {
 }
 
 .logo-img {
-  height: 48px;
+  height: 36px;
+  max-width: 120px;
   width: auto;
   display: block;
   object-fit: contain;
-  filter: brightness(0) invert(1);
   transition: opacity 0.3s;
 }
 

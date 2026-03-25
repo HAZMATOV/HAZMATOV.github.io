@@ -54,44 +54,68 @@ import Layout from '../../layouts/Layout.astro';
   </div>
   <div class="proj-gallery">
     <div class="proj-gallery-main" data-aos="fade-up">
-      <img id="mainPhoto" src="/images/project_photo/project_1/photo_1_2026-03-20_19-37-19.jpg" alt="Фото проекта" onclick="openLightbox(this.src)">
+      <img id="mainPhoto" src="/images/project_photo/project_1/photo_1_2026-03-20_19-37-19.jpg" alt="Фото проекта">
     </div>
     <div class="proj-gallery-thumbs" data-aos="fade-up" data-aos-delay="100">
-      <img src="/images/project_photo/project_1/photo_1_2026-03-20_19-37-19.jpg" alt="Фото 1" class="thumb active" onclick="setMain(this)">
-      <img src="/images/project_photo/project_1/photo_2_2026-03-20_19-37-19.jpg" alt="Фото 2" class="thumb" onclick="setMain(this)">
-      <img src="/images/project_photo/project_1/photo_3_2026-03-20_19-37-19.jpg" alt="Фото 3" class="thumb" onclick="setMain(this)">
-      <img src="/images/project_photo/project_1/photo_4_2026-03-20_19-37-19.jpg" alt="Фото 4" class="thumb" onclick="setMain(this)">
-      <img src="/images/project_photo/project_1/photo_5_2026-03-20_19-37-19.jpg" alt="Фото 5" class="thumb" onclick="setMain(this)">
-      <img src="/images/project_photo/project_1/photo_6_2026-03-20_19-37-19.jpg" alt="Фото 6" class="thumb" onclick="setMain(this)">
-      <img src="/images/project_photo/project_1/photo_7_2026-03-20_19-37-19.jpg" alt="Фото 7" class="thumb" onclick="setMain(this)">
-      <img src="/images/project_photo/project_1/photo_8_2026-03-20_19-37-19.jpg" alt="Фото 8" class="thumb" onclick="setMain(this)">
+      <img src="/images/project_photo/project_1/photo_1_2026-03-20_19-37-19.jpg" alt="Фото 1" class="thumb active">
+      <img src="/images/project_photo/project_1/photo_2_2026-03-20_19-37-19.jpg" alt="Фото 2" class="thumb">
+      <img src="/images/project_photo/project_1/photo_3_2026-03-20_19-37-19.jpg" alt="Фото 3" class="thumb">
+      <img src="/images/project_photo/project_1/photo_4_2026-03-20_19-37-19.jpg" alt="Фото 4" class="thumb">
+      <img src="/images/project_photo/project_1/photo_5_2026-03-20_19-37-19.jpg" alt="Фото 5" class="thumb">
+      <img src="/images/project_photo/project_1/photo_6_2026-03-20_19-37-19.jpg" alt="Фото 6" class="thumb">
+      <img src="/images/project_photo/project_1/photo_7_2026-03-20_19-37-19.jpg" alt="Фото 7" class="thumb">
+      <img src="/images/project_photo/project_1/photo_8_2026-03-20_19-37-19.jpg" alt="Фото 8" class="thumb">
     </div>
   </div>
 </div>
 </section>
 
 <!-- Lightbox -->
-<div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;">
+<div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;">
   <img id="lightboxImg" src="" alt="" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px;">
-  <button onclick="closeLightbox()" style="position:absolute;top:24px;right:32px;background:none;border:none;color:#fff;font-size:40px;cursor:pointer;line-height:1;">×</button>
+  <button id="lightboxClose" style="position:absolute;top:24px;right:32px;background:none;border:none;color:#fff;font-size:40px;cursor:pointer;line-height:1;">×</button>
 </div>
 
 <script is:inline>
-function setMain(thumb) {
-  document.getElementById('mainPhoto').src = thumb.src;
-  document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-  thumb.classList.add('active');
-}
-function openLightbox(src) {
-  const lb = document.getElementById('lightbox');
-  document.getElementById('lightboxImg').src = src;
-  lb.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
-function closeLightbox() {
-  document.getElementById('lightbox').style.display = 'none';
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+(function() {
+  function initGallery() {
+    var main = document.getElementById('mainPhoto');
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightboxImg');
+    var lightboxClose = document.getElementById('lightboxClose');
+    if (!main || !lightbox) return;
+
+    document.querySelectorAll('.thumb').forEach(function(thumb) {
+      thumb.addEventListener('click', function() {
+        main.src = thumb.src;
+        document.querySelectorAll('.thumb').forEach(function(t) { t.classList.remove('active'); });
+        thumb.classList.add('active');
+      });
+    });
+
+    main.addEventListener('click', function() {
+      lightboxImg.src = main.src;
+      lightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    });
+
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox || e.target === lightboxClose) {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initGallery);
+  document.addEventListener('astro:page-load', initGallery);
+})();
 </script>
 </Layout>
