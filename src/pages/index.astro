@@ -159,56 +159,16 @@ import Layout from '../layouts/Layout.astro';
 <!-- CALCULATOR -->
 <section class="section-dark" id="calculator">
   <div class="container">
-    <div class="calc-layout">
-      <div class="calc-info" data-aos="fade-right">
-        <div class="eyebrow eyebrow-gold">Стоимость</div>
-        <h2 class="h2 h2-white">Рассчитайте стоимость<br>вашего дома</h2>
-        <p class="body-text" style="color:rgba(255,255,255,0.55)">Укажите параметры — и наш специалист свяжется с вами с готовым расчётом. Смета составляется бесплатно.</p>
-        <div class="calc-promise">
-          <div class="cp-item"><span>✓</span> Фиксированная цена в договоре</div>
-          <div class="cp-item"><span>✓</span> Без скрытых доплат</div>
-          <div class="cp-item"><span>✓</span> Гарантия 5 лет</div>
-        </div>
+    <div style="text-align:center;max-width:640px;margin:0 auto">
+      <div class="eyebrow eyebrow-gold" data-aos="fade-up">Стоимость</div>
+      <h2 class="h2 h2-white" data-aos="fade-up" data-aos-delay="80">Рассчитайте стоимость<br>вашего дома</h2>
+      <p data-aos="fade-up" data-aos-delay="160" style="color:rgba(255,255,255,0.55);font-size:17px;line-height:1.7;margin-bottom:40px">Укажите параметры — наш специалист свяжется с вами и составит точную смету бесплатно.</p>
+      <div class="calc-promise" style="justify-content:center;flex-direction:row;gap:32px;flex-wrap:wrap;margin-bottom:40px" data-aos="fade-up" data-aos-delay="200">
+        <div class="cp-item"><span>✓</span> Фиксированная цена</div>
+        <div class="cp-item"><span>✓</span> Без скрытых доплат</div>
+        <div class="cp-item"><span>✓</span> Гарантия 5 лет</div>
       </div>
-      <div class="calc-form-wrap" data-aos="fade-left" data-aos-delay="100">
-        <div class="calc-form">
-          <div class="cf-row">
-            <div class="cf-field">
-              <label>Площадь дома, м²</label>
-              <input id="area" type="number" placeholder="Например, 150" min="50" max="1000">
-            </div>
-            <div class="cf-field">
-              <label>Материал стен</label>
-              <select id="material">
-                <option value="">Выберите</option>
-                <option value="kirpich">Кирпич</option>
-                <option value="gazobeton">Газобетон</option>
-              </select>
-            </div>
-          </div>
-          <div class="cf-row">
-            <div class="cf-field">
-              <label>Этажность</label>
-              <select id="floors">
-                <option value="">Выберите</option>
-                <option value="1">1 этаж</option>
-                <option value="2">2 этажа</option>
-                <option value="3">3 этажа</option>
-              </select>
-            </div>
-            <div class="cf-field">
-              <label>Тип отделки</label>
-              <select id="finish">
-                <option value="">Выберите</option>
-                <option value="no">Без отделки</option>
-                <option value="basic">Базовая</option>
-                <option value="premium">Премиум</option>
-              </select>
-            </div>
-          </div>
-          <button class="btn btn-gold btn-full" id="calcBtn">Рассчитать стоимость</button>
-        </div>
-      </div>
+      <button class="btn btn-gold" id="calcBtn" data-aos="fade-up" data-aos-delay="240" style="padding:18px 56px;font-size:16px">Рассчитать стоимость</button>
     </div>
   </div>
 </section>
