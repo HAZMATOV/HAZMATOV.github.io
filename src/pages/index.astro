@@ -163,7 +163,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="calc-info" data-aos="fade-right">
         <div class="eyebrow eyebrow-gold">Стоимость</div>
         <h2 class="h2 h2-white">Рассчитайте стоимость<br>вашего дома</h2>
-        <p class="body-text" style="color:rgba(255,255,255,0.55)">Укажите параметры — получите предварительный расчёт за 30 секунд. Точная смета составляется бесплатно после выезда специалиста.</p>
+        <p class="body-text" style="color:rgba(255,255,255,0.55)">Укажите параметры — и наш специалист свяжется с вами с готовым расчётом. Смета составляется бесплатно.</p>
         <div class="calc-promise">
           <div class="cp-item"><span>✓</span> Фиксированная цена в договоре</div>
           <div class="cp-item"><span>✓</span> Без скрытых доплат</div>
@@ -206,13 +206,104 @@ import Layout from '../layouts/Layout.astro';
               </select>
             </div>
           </div>
-          <button class="btn btn-gold btn-full" onclick="calcPrice()">Рассчитать стоимость</button>
-          <div id="result"></div>
+          <button class="btn btn-gold btn-full" id="calcBtn">Рассчитать стоимость</button>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- MODAL -->
+<div id="calcModal" style="display:none;position:fixed;inset:0;z-index:10000;align-items:center;justify-content:center;padding:20px;">
+  <div id="calcModalBg" style="position:absolute;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);"></div>
+  <div style="position:relative;background:#111;border:1px solid rgba(201,160,99,0.25);border-radius:20px;padding:48px;max-width:520px;width:100%;z-index:1;animation:modalIn 0.3s ease;">
+    <button id="calcModalClose" style="position:absolute;top:20px;right:24px;background:none;border:none;color:rgba(255,255,255,0.4);font-size:28px;cursor:pointer;line-height:1;transition:color 0.2s;">×</button>
+
+    <div class="eyebrow eyebrow-gold" style="margin-bottom:8px">Получить расчёт</div>
+    <h3 style="font-size:26px;font-weight:900;color:#fff;margin-bottom:8px;line-height:1.2">Свяжитесь с нами</h3>
+    <p style="font-size:15px;color:rgba(255,255,255,0.5);margin-bottom:32px">Ответим и рассчитаем стоимость в течение 15 минут</p>
+
+    <!-- Контакты -->
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px">
+      <a href="tel:+79932489008" style="display:flex;align-items:center;gap:14px;padding:16px 20px;background:rgba(201,160,99,0.08);border:1px solid rgba(201,160,99,0.2);border-radius:12px;text-decoration:none;transition:background 0.3s;" onmouseover="this.style.background='rgba(201,160,99,0.15)'" onmouseout="this.style.background='rgba(201,160,99,0.08)'">
+        <span style="font-size:22px">📞</span>
+        <div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Позвонить</div>
+          <div style="font-size:18px;font-weight:700;color:#fff">+7 993 248 90 08</div>
+        </div>
+      </a>
+      <a href="https://t.me/sk_goldstroj" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;padding:16px 20px;background:rgba(201,160,99,0.08);border:1px solid rgba(201,160,99,0.2);border-radius:12px;text-decoration:none;transition:background 0.3s;" onmouseover="this.style.background='rgba(201,160,99,0.15)'" onmouseout="this.style.background='rgba(201,160,99,0.08)'">
+        <span style="font-size:22px">✈️</span>
+        <div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Telegram</div>
+          <div style="font-size:18px;font-weight:700;color:#fff">@sk_goldstroj</div>
+        </div>
+      </a>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+      <div style="flex:1;height:1px;background:rgba(255,255,255,0.1)"></div>
+      <span style="font-size:13px;color:rgba(255,255,255,0.3)">или оставьте заявку</span>
+      <div style="flex:1;height:1px;background:rgba(255,255,255,0.1)"></div>
+    </div>
+
+    <!-- Форма -->
+    <form id="calcModalForm">
+      <div style="margin-bottom:16px">
+        <input type="text" id="modalName" placeholder="Ваше имя" required style="width:100%;padding:14px 18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:15px;color:#fff;font-family:inherit;outline:none;transition:border-color 0.3s;" onfocus="this.style.borderColor='#c9a063'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+      </div>
+      <div style="margin-bottom:20px">
+        <input type="text" id="modalContact" placeholder="Телефон или Telegram" required style="width:100%;padding:14px 18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:15px;color:#fff;font-family:inherit;outline:none;transition:border-color 0.3s;" onfocus="this.style.borderColor='#c9a063'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+      </div>
+      <button type="submit" class="btn btn-gold btn-full">Отправить заявку</button>
+    </form>
+    <div id="modalSuccess" style="display:none;text-align:center;padding:20px 0">
+      <div style="font-size:40px;margin-bottom:12px">✓</div>
+      <p style="font-size:17px;color:#fff;font-weight:600">Заявка отправлена!</p>
+      <p style="font-size:14px;color:rgba(255,255,255,0.5);margin-top:6px">Свяжемся с вами в течение 15 минут</p>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+(function () {
+  function initCalcModal() {
+    var btn = document.getElementById('calcBtn');
+    var modal = document.getElementById('calcModal');
+    var bg = document.getElementById('calcModalBg');
+    var close = document.getElementById('calcModalClose');
+    var form = document.getElementById('calcModalForm');
+    var success = document.getElementById('modalSuccess');
+    if (!btn || !modal) return;
+
+    function openModal() {
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    btn.addEventListener('click', openModal);
+    bg.addEventListener('click', closeModal);
+    close.addEventListener('click', closeModal);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      form.style.display = 'none';
+      success.style.display = 'block';
+      setTimeout(closeModal, 2500);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initCalcModal);
+  document.addEventListener('astro:page-load', initCalcModal);
+})();
+</script>
 
 <!-- CTA -->
 <section class="section-cta-full" id="contact">

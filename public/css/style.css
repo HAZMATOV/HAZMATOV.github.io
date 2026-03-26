@@ -1735,3 +1735,9 @@ input[type="checkbox"].error-field {
   .proj-gallery-main { height: 280px; }
   .proj-gallery-thumbs { grid-template-columns: repeat(4, 1fr); }
 }
+
+/* ===== CALC MODAL ===== */
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
