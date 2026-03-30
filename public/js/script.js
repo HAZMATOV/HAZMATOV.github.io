@@ -145,52 +145,6 @@ const initSmoothScroll = () => {
   });
 };
 
-// ===== CALCULATOR =====
-function calcPrice() {
-  const area = document.getElementById('area').value;
-  const material = document.getElementById('material').value;
-  const floors = document.getElementById('floors').value;
-  const finish = document.getElementById('finish').value;
-  const resultEl = document.getElementById('result');
-
-  if (!area || area <= 0) {
-    resultEl.innerHTML = '<span style="color:#ff6b6b">Укажите площадь дома</span>';
-    resultEl.classList.add('show');
-    return;
-  }
-  if (!material) {
-    resultEl.innerHTML = '<span style="color:#ff6b6b">Выберите материал стен</span>';
-    resultEl.classList.add('show');
-    return;
-  }
-  if (!floors) {
-    resultEl.innerHTML = '<span style="color:#ff6b6b">Укажите количество этажей</span>';
-    resultEl.classList.add('show');
-    return;
-  }
-  if (!finish) {
-    resultEl.innerHTML = '<span style="color:#ff6b6b">Выберите тип отделки</span>';
-    resultEl.classList.add('show');
-    return;
-  }
-
-  const pricePerM2 = material === 'kirpich' ? 60000 : 50000;
-  const floorCoef = floors === '2' ? 1.15 : floors === '3' ? 1.3 : 1;
-  const finishCoef = finish === 'basic' ? 1.25 : finish === 'premium' ? 1.5 : 1;
-  const total = Math.round(area * pricePerM2 * floorCoef * finishCoef);
-
-  resultEl.style.opacity = '0';
-  setTimeout(() => {
-    resultEl.innerHTML = `
-      <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:8px;text-transform:uppercase;letter-spacing:2px">Примерная стоимость</div>
-      <div style="font-size:48px;font-weight:900;color:#c9a063;line-height:1">${total.toLocaleString('ru-RU')} ₽</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.4);margin-top:12px">Точная смета после выезда специалиста</div>
-    `;
-    resultEl.style.opacity = '1';
-    resultEl.classList.add('show');
-  }, 200);
-}
-
 // ===== NOTIFICATION HELPER =====
 function showNotification(message, type = 'success') {
   const notification = document.createElement('div');
@@ -232,13 +186,7 @@ function sendForm(e) {
 
   form.querySelectorAll('[required]').forEach(field => {
     field.classList.remove('error-field');
-    let isInvalid = false;
-    if (field.type === 'checkbox') {
-      isInvalid = !field.checked;
-    } else {
-      isInvalid = !field.value.trim();
-    }
-
+    const isInvalid = field.type === 'checkbox' ? !field.checked : !field.value.trim();
     if (isInvalid) {
       field.classList.add('error-field');
       hasError = true;
@@ -250,7 +198,7 @@ function sendForm(e) {
   });
 
   if (hasError) {
-    showNotification('Пожалуйста, заполните все обязательные поля корректно', 'error');
+    showNotification('Пожалуйста, заполните все обязательные поля', 'error');
     return;
   }
 
@@ -259,12 +207,34 @@ function sendForm(e) {
   btn.textContent = 'Отправка...';
   btn.disabled = true;
 
-  setTimeout(() => {
-    btn.textContent = orig;
-    btn.disabled = false;
-    showNotification('Спасибо! Мы свяжемся с вами в ближайшее время.', 'success');
-    form.reset();
-  }, 1500);
+  const data = {
+    name: form.querySelector('[name="name"]')?.value || '',
+    contact: form.querySelector('[name="telegram"]')?.value || form.querySelector('[name="contact"]')?.value || '',
+    message: form.querySelector('[name="message"]')?.value || '',
+    source: document.title
+  };
+
+  fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+    .then(r => r.json())
+    .then(res => {
+      if (res.ok) {
+        showNotification('Спасибо! Свяжемся с вами в ближайшее время.', 'success');
+        form.reset();
+      } else {
+        throw new Error('server error');
+      }
+    })
+    .catch(() => {
+      showNotification('Ошибка отправки. Напишите нам в Telegram: @sk_goldstroj', 'error');
+    })
+    .finally(() => {
+      btn.textContent = orig;
+      btn.disabled = false;
+    });
 }
 
 // ===== MOBILE MENU =====

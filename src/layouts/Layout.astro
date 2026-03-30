@@ -27,8 +27,8 @@ const {
 <meta name="description" content={description}>
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href={canonical} />
-<link rel="icon" type="image/png" href="/images/Фавикон.png">
-<link rel="shortcut icon" href="/images/Фавикон.png">
+<link rel="icon" type="image/png" href="/images/Favikon.png">
+<link rel="shortcut icon" href="/images/Favikon.png">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -82,7 +82,6 @@ const {
     <a href="/about">О компании</a>
     <a href="/projects">Проекты</a>
     <a href="/blog">Блог</a>
-    <a href="/#calculator">Калькулятор</a>
     <a href="/contacts">Контакты</a>
   </nav>
   <a href="tel:+79932489008" class="header-phone">+7 993 248 90 08</a>
@@ -108,7 +107,6 @@ const {
       <a href="/about">О компании</a>
       <a href="/projects">Проекты</a>
       <a href="/blog">Блог</a>
-      <a href="/#calculator">Калькулятор</a>
       <a href="/contacts">Контакты</a>
     </div>
     <div class="footer-section">
@@ -128,10 +126,33 @@ const {
       <a href="/services/otdelka">Отделка интерьеров</a>
     </div>
   </div>
-  <div class="footer-bottom">© 2026 СК Голдстрой. Все права защищены.</div>
+  <div class="footer-bottom">© 2026 СК Голдстрой. Все права защищены. <a href="/privacy" style="color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.3s" onmouseover="this.style.color='#c9a063'" onmouseout="this.style.color='rgba(255,255,255,0.3)'">Политика конфиденциальности</a></div>
 </div>
 </footer>
 
 <script is:inline src="/js/script.js"></script>
+
+<!-- Cookie Banner -->
+<div id="cookieBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9998;background:rgba(10,10,10,0.97);border-top:1px solid rgba(255,255,255,0.08);padding:20px 40px;backdrop-filter:blur(20px);">
+  <div style="max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+    <p style="font-size:14px;color:rgba(255,255,255,0.6);margin:0;max-width:700px;line-height:1.6">
+      Мы используем файлы cookie для корректной работы сайта. Продолжая использование сайта, вы соглашаетесь с нашей
+      <a href="/privacy" style="color:#c9a063;text-decoration:underline;">политикой конфиденциальности</a>.
+    </p>
+    <button onclick="acceptCookies()" class="btn btn-gold" style="padding:12px 32px;font-size:14px;white-space:nowrap">Принять</button>
+  </div>
+</div>
+
+<script is:inline>
+(function() {
+  if (!localStorage.getItem('cookiesAccepted')) {
+    document.getElementById('cookieBanner').style.display = 'block';
+  }
+})();
+function acceptCookies() {
+  localStorage.setItem('cookiesAccepted', '1');
+  document.getElementById('cookieBanner').style.display = 'none';
+}
+</script>
 </body>
 </html>

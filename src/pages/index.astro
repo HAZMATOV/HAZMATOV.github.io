@@ -7,7 +7,7 @@ import Layout from '../layouts/Layout.astro';
 <!-- HERO -->
 <section class="hero" id="hero">
   <div class="hero-media">
-    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=80" alt="" class="hero-img" id="heroImg">
+    <img src="/images/stock/hero-main.jpg" alt="" class="hero-img" id="heroImg">
     <div class="hero-vignette" style="background:rgba(0,0,0,0.55);backdrop-filter:blur(3px);"></div>
   </div>
   <div class="hero-noise"></div>
@@ -24,10 +24,7 @@ import Layout from '../layouts/Layout.astro';
       <a href="#projects" class="btn btn-ghost">Смотреть проекты</a>
     </div>
   </div>
-  <div class="hero-scroll-hint" data-aos="fade-up" data-aos-delay="600">
-    <div class="scroll-line"></div>
-    <span>Прокрутите вниз</span>
-  </div>
+
   <div class="hero-counter-strip">
     <div class="container">
       <div class="hero-counters">
@@ -91,21 +88,21 @@ import Layout from '../layouts/Layout.astro';
     <div class="projects-showcase">
       <div class="proj-main" data-aos="fade-right" data-aos-delay="0">
         <a href="/projects/project1" class="proj-card proj-card-large">
-          <img src="/images/project_photo/project_1/photo_1_2026-03-20_19-37-19.jpg" alt="Силуэт">
+          <img src="/images/project_photo/project_1/photo_1_2026-03-20_19-37-19.jpg" alt="Дом 800 м²">
           <div class="proj-overlay">
-            <div class="proj-tag">Газобетон · 102 м²</div>
-            <h3>Силуэт</h3>
-            <p>Современный загородный дом с панорамными окнами</p>
+            <div class="proj-tag">Монолит · 800 м²</div>
+            <h3>Дом 800 м²</h3>
+            <p>Просторный дом с монолитным каркасом и витражным остеклением</p>
             <span class="proj-link">Смотреть проект →</span>
           </div>
         </a>
       </div>
       <div class="proj-side">
         <a href="/projects/project2" class="proj-card" data-aos="fade-left" data-aos-delay="80">
-          <img src="/images/project_photo/project_2/photo_1_2026-03-20_19-37-48.jpg" alt="Аурелиум">
+          <img src="/images/project_photo/project_2/photo_1_2026-03-20_19-37-48.jpg" alt="Дом 120 м²">
           <div class="proj-overlay">
-            <div class="proj-tag">Кирпич · 104 м²</div>
-            <h3>Аурелиум</h3>
+            <div class="proj-tag">Кирпич · 120 м²</div>
+            <h3>Дом 120 м²</h3>
             <span class="proj-link">Смотреть →</span>
           </div>
         </a>
@@ -212,8 +209,14 @@ import Layout from '../layouts/Layout.astro';
       <div style="margin-bottom:16px">
         <input type="text" id="modalName" placeholder="Ваше имя" required style="width:100%;padding:14px 18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:15px;color:#fff;font-family:inherit;outline:none;transition:border-color 0.3s;" onfocus="this.style.borderColor='#c9a063'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
       </div>
-      <div style="margin-bottom:20px">
+      <div style="margin-bottom:16px">
         <input type="text" id="modalContact" placeholder="Телефон или Telegram" required style="width:100%;padding:14px 18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:15px;color:#fff;font-family:inherit;outline:none;transition:border-color 0.3s;" onfocus="this.style.borderColor='#c9a063'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:20px">
+        <input type="checkbox" id="modalAgree" required style="margin-top:3px;width:16px;height:16px;accent-color:#c9a063;flex-shrink:0">
+        <label for="modalAgree" style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.5;cursor:pointer">
+          Согласен с <a href="/privacy" style="color:#c9a063;text-decoration:underline;" target="_blank">политикой конфиденциальности</a>
+        </label>
       </div>
       <button type="submit" class="btn btn-gold btn-full">Отправить заявку</button>
     </form>
@@ -254,9 +257,30 @@ import Layout from '../layouts/Layout.astro';
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      form.style.display = 'none';
-      success.style.display = 'block';
-      setTimeout(closeModal, 2500);
+      var name = document.getElementById('modalName').value.trim();
+      var contact = document.getElementById('modalContact').value.trim();
+      if (!name || !contact) return;
+
+      var btn = form.querySelector('button[type="submit"]');
+      btn.textContent = 'Отправка...';
+      btn.disabled = true;
+
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, contact: contact, source: 'Калькулятор стоимости' })
+      })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+          form.style.display = 'none';
+          success.style.display = 'block';
+          setTimeout(closeModal, 2500);
+        })
+        .catch(function() {
+          btn.textContent = 'Отправить заявку';
+          btn.disabled = false;
+          alert('Ошибка. Напишите нам: @sk_goldstroj');
+        });
     });
   }
 
@@ -267,7 +291,7 @@ import Layout from '../layouts/Layout.astro';
 
 <!-- CTA -->
 <section class="section-cta-full" id="contact">
-  <div class="cta-bg" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80')"></div>
+  <div class="cta-bg" style="background-image:url('/images/stock/cta-bg.jpg')"></div>
   <div class="cta-overlay"></div>
   <div class="container cta-inner">
     <div class="eyebrow eyebrow-gold" data-aos="fade-up">Начните сейчас</div>

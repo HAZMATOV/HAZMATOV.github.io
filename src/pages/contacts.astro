@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Контакты — СК Голдстрой" description="Контакты компании СК Голдстрой. Строительство домов в Москве и Московской области.">
 <section class="page-hero">
-  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80')"></div>
+  <div class="page-hero-bg" style="background-image:url('/images/stock/contacts-hero.jpg')"></div>
   <div class="page-hero-overlay"></div>
   <div class="container page-hero-inner">
     <div class="eyebrow eyebrow-gold" data-aos="fade-up">Свяжитесь с нами</div>
@@ -13,59 +13,61 @@ import Layout from '../layouts/Layout.astro';
   </div>
 </section>
 
-<section class="section-light">
+<section class="section-dark">
 <div class="container">
   <div class="split-layout">
     <div class="split-left" data-aos="fade-right">
-      <div class="eyebrow">Как с нами связаться</div>
-      <h2 class="h2">Наши контакты</h2>
-      
-      <div style="margin-bottom:35px">
-        <h3 style="font-size:18px;color:#c9a063;margin-bottom:12px;font-weight:600">Telegram</h3>
-        <a href="https://t.me/sk_goldstroj" style="font-size:28px;color:#ffffff;text-decoration:none;font-weight:700;display:inline-block;transition:color 0.3s">@sk_goldstroj</a>
-        <p style="color:rgba(255,255,255,0.7);margin-top:8px;font-size:15px">Быстрая связь в любое время</p>
+      <div class="eyebrow eyebrow-gold">Как с нами связаться</div>
+      <h2 class="h2 h2-white">Наши контакты</h2>
+
+      <div style="margin-bottom:32px">
+        <div style="font-size:13px;color:#c9a063;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px">Telegram</div>
+        <a href="https://t.me/sk_goldstroj" style="font-size:26px;color:#fff;text-decoration:none;font-weight:700;display:inline-block;transition:color 0.3s" onmouseover="this.style.color='#c9a063'" onmouseout="this.style.color='#fff'">@sk_goldstroj</a>
+        <p style="color:rgba(255,255,255,0.5);margin-top:6px;font-size:14px">Быстрая связь в любое время</p>
       </div>
-      
-      <div style="margin-bottom:35px">
-        <h3 style="font-size:18px;color:#c9a063;margin-bottom:12px;font-weight:600">Email</h3>
-        <a href="mailto:sk-goldstroj@yandex.ru" style="font-size:20px;color:#ffffff;text-decoration:none;transition:color 0.3s">sk-goldstroj@yandex.ru</a>
-        <p style="color:rgba(255,255,255,0.7);margin-top:8px;font-size:15px">Для официальных запросов</p>
+
+      <div style="margin-bottom:32px">
+        <div style="font-size:13px;color:#c9a063;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px">Email</div>
+        <a href="mailto:sk-goldstroj@yandex.ru" style="font-size:18px;color:#fff;text-decoration:none;transition:color 0.3s" onmouseover="this.style.color='#c9a063'" onmouseout="this.style.color='#fff'">sk-goldstroj@yandex.ru</a>
+        <p style="color:rgba(255,255,255,0.5);margin-top:6px;font-size:14px">Для официальных запросов</p>
       </div>
-      
-      <div style="margin-bottom:35px">
-        <h3 style="font-size:18px;color:#c9a063;margin-bottom:12px;font-weight:600">Адрес</h3>
-        <p style="font-size:17px;color:rgba(255,255,255,0.7);line-height:1.7">Москва и Московская область<br>Работаем по всему региону</p>
+
+      <div style="margin-bottom:32px">
+        <div style="font-size:13px;color:#c9a063;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px">Телефон</div>
+        <a href="tel:+79932489008" style="font-size:22px;color:#fff;text-decoration:none;font-weight:700;transition:color 0.3s" onmouseover="this.style.color='#c9a063'" onmouseout="this.style.color='#fff'">+7 993 248 90 08</a>
+        <p style="color:rgba(255,255,255,0.5);margin-top:6px;font-size:14px">Ежедневно с 9:00 до 22:00</p>
       </div>
-      
+
       <div>
-        <h3 style="font-size:18px;color:#c9a063;margin-bottom:12px;font-weight:600">График работы</h3>
-        <p style="font-size:17px;color:rgba(255,255,255,0.7);line-height:1.7">Ежедневно с 9:00 до 22:00<br>Без выходных</p>
+        <div style="font-size:13px;color:#c9a063;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px">Регион работы</div>
+        <p style="font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7">Москва и Московская область</p>
       </div>
     </div>
-    
+
     <div class="split-right" data-aos="fade-left" data-aos-delay="100">
-      <div class="contact-form">
-        <h2 style="font-size:32px;font-weight:900;margin-bottom:30px;color:#ffffff">Напишите нам</h2>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:40px;">
+        <h2 style="font-size:28px;font-weight:900;margin-bottom:8px;color:#fff">Оставить заявку</h2>
+        <p style="font-size:15px;color:rgba(255,255,255,0.5);margin-bottom:28px">Свяжемся в течение 15 минут</p>
         <form onsubmit="sendForm(event)" style="margin:0" novalidate>
-          <div class="form-group">
-            <label>Ваше имя *</label>
-            <input type="text" name="name" placeholder="Иван Иванов" required>
+          <div style="margin-bottom:16px">
+            <label style="display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Ваше имя *</label>
+            <input type="text" name="name" placeholder="Иван Иванов" required style="width:100%;padding:14px 18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:15px;color:#fff;font-family:inherit;outline:none;transition:border-color 0.3s;" onfocus="this.style.borderColor='#c9a063'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
           </div>
-          <div class="form-group">
-            <label>Telegram username *</label>
-            <input type="text" name="telegram" placeholder="@username" required>
+          <div style="margin-bottom:16px">
+            <label style="display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Telegram или телефон *</label>
+            <input type="text" name="telegram" placeholder="@username или +7..." required style="width:100%;padding:14px 18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:15px;color:#fff;font-family:inherit;outline:none;transition:border-color 0.3s;" onfocus="this.style.borderColor='#c9a063'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
           </div>
-          <div class="form-group">
-            <label>Сообщение</label>
-            <textarea name="message" placeholder="Расскажите о вашем проекте..." rows="4"></textarea>
+          <div style="margin-bottom:20px">
+            <label style="display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Сообщение</label>
+            <textarea name="message" placeholder="Расскажите о вашем проекте..." rows="4" style="width:100%;padding:14px 18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-size:15px;color:#fff;font-family:inherit;outline:none;transition:border-color 0.3s;resize:vertical;" onfocus="this.style.borderColor='#c9a063'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
           </div>
-          <div class="checkbox-group">
-            <input type="checkbox" id="agree" required>
-            <label for="agree">
-              Я даю согласие на обработку персональных данных в соответствии с <a href="/privacy" style="color:#c9a063;text-decoration:underline;">Политикой конфиденциальности</a>
+          <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:24px">
+            <input type="checkbox" id="agree" required style="margin-top:3px;width:16px;height:16px;accent-color:#c9a063;flex-shrink:0">
+            <label for="agree" style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.5;cursor:pointer">
+              Согласен с <a href="/privacy" style="color:#c9a063;text-decoration:underline;">политикой конфиденциальности</a>
             </label>
           </div>
-          <button type="submit" class="btn btn-gold" style="width:100%;font-size:16px;padding:16px;transition:all 0.3s">Отправить заявку</button>
+          <button type="submit" class="btn btn-gold" style="width:100%;font-size:15px;padding:16px">Отправить заявку</button>
         </form>
       </div>
     </div>
